@@ -45,7 +45,7 @@ echo form_open('shopping_cart/update', $form_attributes); ?>
 <?php foreach ($this->cart->contents() as $items): ?>
 <tr>
           <td><?php echo $items['name']; ?></td>
-            
+
             <?php if ($this->cart->has_options($items['rowid']) == TRUE): ?>
 
                                          <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value): ?>
@@ -53,7 +53,7 @@ echo form_open('shopping_cart/update', $form_attributes); ?>
                                         <?php endforeach; ?>
 
                         <?php endif; ?>
-          
+
           <td><?php echo priceFormat($items['price']); ?></td>
           <td>
            <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
    * Main template file
    *
@@ -22,9 +22,9 @@ $glo_total = $this->cart->total();
 $glo_total_items = $this->cart->total_items();
 
 $topButtomArray = array(
-  '%total_items%' => $glo_total_items, 
-  '%item_select%' => ($glo_total_items == 1) ? __('item') : __('items'), 
-  '%glo_total%' => priceFormat($glo_total, true), 
+  '%total_items%' => $glo_total_items,
+  '%item_select%' => ($glo_total_items == 1) ? __('item') : __('items'),
+  '%glo_total%' => priceFormat($glo_total, true),
   );
 $cartBtnMarkup = __('<strong>%total_items%</strong> %item_select% of <strong>%glo_total%</strong> in your').' <i class="icon-shopping-cart"></i>';
 $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
@@ -43,19 +43,19 @@ $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
     <!--[if lt IE 9]>
       <script src="<?php echo latestFile('assets/js/html5shiv.min.js'); ?>"></script>
     <![endif]-->
-   
+
    <!-- CSS -->
 	 <link rel="stylesheet" href="<?php echo latestFile('assets/css/bootstrap.min.css'); ?>" type="text/css">
 	 <link rel="stylesheet" href="<?php echo latestFile('assets/css/bootstrap-responsive.min.css'); ?>" type="text/css">
 	 <link rel="stylesheet" href="<?php echo latestFile('assets/css/custom.css'); ?>" type="text/css">
    <link rel="stylesheet" href="<?php echo latestFile('assets/css/footable.core.min.css'); ?>" type="text/css">
-	<?php 	if(isset($insertCSS)):	
+	<?php 	if(isset($insertCSS)):
   $insertCSS = array_filter($insertCSS);
   foreach($insertCSS as $eachCSS): ?>
 	<link href="<?php echo latestFile('assets/css/'.$eachCSS.'.css'); ?>" rel="stylesheet">
-	<?php 	endforeach;	endif; ?>	
+	<?php 	endforeach;	endif; ?>
 
-<script src="<?php echo latestFile('assets/js/jquery-1.11.1.min.js'); ?>" type="text/javascript" charset="utf-8"></script>  
+<script src="<?php echo latestFile('assets/js/jquery-1.11.1.min.js'); ?>" type="text/javascript" charset="utf-8"></script>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
@@ -87,7 +87,7 @@ $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
             <li><a href="<?php echo site_url('auth/login'); ?>"><?php echo __('Login'); ?></a></li>
 			  <?php endIf; ?>
               </ul>
-               <?php 
+               <?php
                $availableLanguages = config_item('availableLanguages');
                if($this->tank_auth->is_logged_in() OR (isset($availableLanguages) AND count($availableLanguages) > 1)): ?>
               <ul class="nav pull-right">
@@ -106,7 +106,7 @@ $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $availableLanguages[$current_store_lang]; ?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <?php foreach($availableLanguages as $langRow => $langValue): 
+                    <?php foreach($availableLanguages as $langRow => $langValue):
                       if($langValue == $availableLanguages[$current_store_lang]) continue;
                     ?>
                       <li><a href="<?php echo site_url($this->uri->uri_string().'?lang='.$langRow); ?>"><?php echo $langValue; ?></a></li>
@@ -133,7 +133,7 @@ $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
     <?php if(isset($page_title)) echo '<h3>'.$page_title.'</h3> <hr>'; ?>
 	  <?php if(isset($temp_msg)) echo '<div class="alert">'.$temp_msg.'</div>'; ?>
      <?php echo showFlashMsg(); ?>
-	<?php 
+	<?php
   if(isset($page))$this->load->view($apply_theme.'/'.$page, $page_data); ?>
     </div>
 <div id="cartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> </div>
@@ -144,17 +144,17 @@ $cartBtnMarkup =  strtr($cartBtnMarkup, $topButtomArray);
     <div id="footer">
       <div class="container-fluid">
 
-      <?php 
+      <?php
       $footerTextArray = array(
-        '%year%'        => date('Y'), 
-        '%store_name%'  => __($settings['store_name']), 
+        '%year%'        => date('Y'),
+        '%store_name%'  => __($settings['store_name']),
       );
 
       $footerHeadingMarkup = __('&copy; %year% %store_name%');
       $footerHeadingMarkup =  strtr($footerHeadingMarkup, $footerTextArray);
 
     ?>
-        <p class="muted credit"><?php echo $footerHeadingMarkup; ?> 
+        <p class="muted credit"><?php echo $footerHeadingMarkup; ?>
         <?php if (config_item('show_lively_cart_credit')): ?><small class="pull-right"><?php echo __('Powered by <a href="http://livelycart.com" title="Powered by LivelyCart" target="_blank">LivelyCart</a> - '.LIVELYCART_VERSION.' by <a href="http://livelyworks.net" title="Design &amp; Developed by LivelyWorks" target="_blank">LivelyWorks</a>') ?></small><?php endif ?>
 
       </div>

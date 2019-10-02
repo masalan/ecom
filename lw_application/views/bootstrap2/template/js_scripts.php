@@ -1,6 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
-   * on page Javascript container 
+   * on page Javascript container
    *
    * @package    JQuery PHP Store/Shop
    * @author    Vinod
@@ -64,9 +64,9 @@ $(document).ready(function() {
    <?php if(in_array('js_delete_product', $insertScripts)): ?>
      /*Delete Product*/
   $(".delete_product").on("click",function(e){
-    var r=confirm("<?php echo __('Do you really want to delete this Product?'); ?>"); 
+    var r=confirm("<?php echo __('Do you really want to delete this Product?'); ?>");
     if (r==true)
-    window.location = $(this).attr("href"); 
+    window.location = $(this).attr("href");
     e.preventDefault();
   });
   /*Delete Product End*/

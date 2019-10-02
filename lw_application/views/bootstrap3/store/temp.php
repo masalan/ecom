@@ -1,15 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-/**
-    * product details view
-    *
-    * @package    JQuery PHP Store/Shop
-    * @author    Vinod
-    * @copyright  Copyright (c) 2013, LivelyWorks. (http://livelyworks.net)
-    * @link    http://livelyworks.net
-    * @since    Version 1.0
- */ 
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+
  $isAjaxReq = false;
-if($this->input->is_ajax_request()): 
+if($this->input->is_ajax_request()):
       $isAjaxReq = true;
 endif;
   $hidden_data = array(
@@ -44,29 +37,29 @@ $product_qty = array(
     <div class="modal_body" id="ModelProductData">
     <h4><small> <?php echo __('Category'); ?>: <strong><?php echo $categories_array[$query['category']]; ?></strong> <?php echo __('Product ID'); ?>: <strong><?php echo $query['product_id']; ?></strong> </small><strong class="store-product-price"> &nbsp; <?php echo __('Price'); ?>: <?php echo priceFormat($query['price']); ?></strong> </h4>
   </div>
-  <?php else: ?> 
+  <?php else: ?>
   <div class="modal_body" id="ModelProductData">
    <h4><small> <?php echo __('Category'); ?>: <strong><?php echo $categories_array[$query['category']]; ?></strong> <?php echo __('Product ID'); ?>: <strong><?php echo $query['product_id']; ?></strong> </small><strong class="store-product-price"> &nbsp; <?php echo __('Price'); ?>: <?php echo priceFormat($query['price']); ?></strong> </h4><hr>
- <?php endif; ?>  
- </div> 
+ <?php endif; ?>
+ </div>
   <div class="modal_body" id="ModelProductData">
    <p><?php echo html_entity_decode($query['description']); ?></p>
   </div>
   <div class="modal-footer">
-    <?php echo form_open('shopping_cart/addToCart', $form_ttributes); 
+    <?php echo form_open('shopping_cart/addToCart', $form_ttributes);
       echo form_hidden($hidden_data);
     ?>
     <div class="pull-right">
-<?php if(isset($query['sizes_option'])): ?> 
+<?php if(isset($query['sizes_option'])): ?>
   <div class="form-group">
   <div class="input-group" style="max-width: 200px;">
   <span class="input-group-addon"><?php echo __('Select Size'); ?>:</span>
   <?php echo form_dropdown('size', $query['sizes_option'],null, 'class="form-control" id="size"'); ?>
 </div>
 </div>
-<?php endif; ?> 
+<?php endif; ?>
 
- <?php if(isset($query['colors_option'])): ?> 
+ <?php if(isset($query['colors_option'])): ?>
  <div class="form-group">
   <div class="input-group" style="max-width: 200px;">
   <span class="input-group-addon"><?php echo __('Select Color'); ?>:</span>
@@ -150,27 +143,19 @@ $product_qty = array(
        });
 
       $('#size,#color').on('change', checkCartForItem);
-
       function checkCartForItem(){
-
         $addToCartBtn.addClass('disabled');
-
         var sizeEl = ($('#size').length != 0) ? $('#size option:selected').val()  : 'notAvailable';
         var colorEl = ($('#color').length != 0) ? $('#color option:selected').val() : '';
-
         var cartCheckURL = "<?php echo site_url('product/checkOldQty/'.$query['id']); ?>/"+ sizeEl+ '/' + colorEl;
-
         $.post(cartCheckURL, function(data){
               $product_qty.val(data.qty ? data.qty : 1);
-
               if(data.qty > 0){
                  $addToCartBtn.html('<?php echo __("Update"); ?> <i class="glyphicon glyphicon-shopping-cart icon-white"></i>');
               }else{
                  $addToCartBtn.html('<?php echo __("Add to"); ?> <i class="glyphicon glyphicon-shopping-cart icon-white"></i>');
               }
-
               $addToCartBtn.removeClass('disabled');
-
        }, "JSON")
        .fail(function(error){
           /* if(error)

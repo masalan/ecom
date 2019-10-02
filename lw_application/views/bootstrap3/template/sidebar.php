@@ -1,51 +1,79 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 ?>
-<div id="sidebar" role="navigation">
-  
-  <?php 
-  if($this->tank_auth->is_logged_in()): ?>
+
+<div class="col-xl-3 col-lg-4 col-md-5">
     <div class="panel panel-default">
-    <div class="panel-heading"><strong><?php echo __('Admin Area'); ?></strong></div>
-	   <div class="nav list-group">
-        <a class="list-group-item" href="<?php echo site_url('settings/storeSettings'); ?>"><i class="glyphicon glyphicon-cog"></i> <?php echo __('Store Settings'); ?></a>        <div class="panel-heading list-group-item"><strong><?php echo __('Products'); ?></strong></div>
-        <a class="list-group-item" href="<?php echo site_url('manage_categories'); ?>"><i class="glyphicon glyphicon-folder-close"></i> <?php echo __('Manage Categories'); ?></a>      
-        <a class="list-group-item" href="<?php echo site_url('manage_categories/add'); ?>"><i class="glyphicon glyphicon-folder-close"></i> <sup><i class="glyphicon glyphicon-plus"></i></sup> <?php echo __('Add Category'); ?></a>
-        <a class="list-group-item" href="<?php echo site_url('manage_products'); ?>"><i class="glyphicon glyphicon-file"></i> <?php echo __('Manage Products'); ?></a>
-        <a class="list-group-item" href="<?php echo site_url('manage_products/add'); ?>"><i class="glyphicon glyphicon-file"></i> <sup><i class="glyphicon glyphicon-plus"></i></sup> <?php echo __('Add Product'); ?></a>
-        
-        <div class="panel-heading list-group-item"><strong><?php echo __('Admin Settings'); ?></strong></div>
-        <a class="list-group-item" href="<?php echo site_url('auth/change_password'); ?>"><i class="glyphicon glyphicon-lock"></i> <?php echo __('Change Password'); ?></a>
-        <a class="list-group-item" href="<?php echo site_url('auth/change_email'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php echo __('Change Email'); ?></a>
-        <a class="list-group-item" href="<?php echo site_url('auth/logout'); ?>"><i class="glyphicon glyphicon-log-out"></i> <?php echo __('Logout'); ?></a>
-          </div>
+        <div class="panel-heading" id="Parcourir"> <h5>Parcourir les catégories</h5></div>
+        <div class="list-group">
+            <a class="list-group-item <?php echo (isset($currentCategory) and ($currentCategory == 0)) ? 'active' : ''; ?>" href="<?php echo site_url('product/'); ?>"><?php echo __('All Products'); ?> <i class="glyphicon glyphicon-arrow-right pull-right"></i></a>
+            <?php if(isset($categories)): foreach($categories as $row): ?>
+                <a class="list-group-item <?php echo (!empty($currentCategory) and ($currentCategory == $row->id)) ? 'active' : ''; ?>" href="<?php echo site_url('product/category/'.$row->id.'/'.url_title($row->name,"-",true)); ?>"><?php echo $row->name; ?> <i class="glyphicon glyphicon-arrow-right pull-right"></i></a>
+            <?php endforeach; endIf; ?>
         </div>
-         <?php endIf; ?>
 
-     <div class="panel panel-default">
-  <div class="panel-heading"><?php echo __('Product Search'); ?></div>
-  <div class="panel-body">
-  <form action="<?php echo site_url('product/search'); ?>" accept-charset="utf-8" class="form-horizontal" method="GET">
-  <div class="row input-search">
-  <div class="col-md-11">
-    <div class="input-group">
-      <input type="text" name="search_query" class="form-control col-lg-4" value="<?php echo isset($last_search_query) ? $last_search_query : ''; ?>">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><?php echo __('Search'); ?></button>
-      </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div>
-</form>
-  </div>
-</div>
-     <div class="panel panel-default">
-  <div class="panel-heading"> <h4><?php echo __('Categories'); ?></h4></div>
- <div class="list-group">
-  <a class="list-group-item <?php echo (isset($currentCategory) and ($currentCategory == 0)) ? 'active' : ''; ?>" href="<?php echo site_url('product/'); ?>"><?php echo __('All Products'); ?> <i class="glyphicon glyphicon-arrow-right pull-right"></i></a>
-   <?php if(isset($categories)): foreach($categories as $row): ?>
-    <a class="list-group-item <?php echo (!empty($currentCategory) and ($currentCategory == $row->id)) ? 'active' : ''; ?>" href="<?php echo site_url('product/category/'.$row->id.'/'.url_title($row->name,"-",true)); ?>"><?php echo $row->name; ?> <i class="glyphicon glyphicon-arrow-right pull-right"></i></a>
-    <?php endforeach; endIf; ?>
+    </div>
+
+
+    <div class="sidebar-filter mt-50">
+        <div class="top-filter-head">Filtre de produits</div>
+        <div class="common-filter">
+            <div class="head">Marques</div>
+            <form action="#">
+                <ul>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                </ul>
+            </form>
+        </div>
+        <div class="common-filter">
+            <div class="head">Couleur</div>
+            <form action="#">
+                <ul>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Noir<span>(29)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Rouge<span>(19)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Argenté<span>(19)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Gris<span>(19)</span></label></li>
+                </ul>
+            </form>
+        </div>
+        <div class="common-filter">
+            <div class="head">Prix</div>
+            <div class="price-range-area">
+                <div id="price-range"></div>
+                <div class="value-wrapper d-flex">
+                    <div class="price">Price:</div>
+                    <span>Fcfa</span>
+                    <div id="lower-value"></div>
+                    <div class="to">to</div>
+                    <span>Fcfa</span>
+                    <div id="upper-value"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-		</div>  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

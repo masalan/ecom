@@ -162,10 +162,24 @@ class Product extends Base_Controller
         }
 
         $product_query = $this->products_model->fetchAll(false, $options);
-        
+        //$best_seller = $this->products_model->fetchAll(false, $options);
+
+        $best_seller = $this->products_model->fetchAll_best();
+
+
+//
+//        $query = $this->db->get('mytable', 10, 20);
+//        $query = $this->db->get_where('mytable', array('id' => $id), 10, 20);
+//        $this->db->limit(10);
+//        $this->db->limit(10, 20);
+
+
+
+        $data['best_seller'] = $best_seller;
         $data['product_query'] = $product_query;
 
         $data['page'] = 'store/products_list_view';
+        $data['pages'] = 'store/best_seller';
 
         $data['insertScripts'] = array(
                 'js_ajax_details'

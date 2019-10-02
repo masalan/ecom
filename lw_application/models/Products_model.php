@@ -108,6 +108,24 @@ class Products_Model extends CI_Model
         }
     }
 
+
+
+
+
+    function fetchAll_best()
+    {
+
+        $query = $this->db->get($this->table_name,9);
+       // $query = $this->db->get($this->table_name);
+
+        if ($query->num_rows() > 0) {
+            $new_result = $query->result();
+
+
+            $query->free_result();
+            return $new_result;
+        }
+    }
     /**
          * counting all products based on option provided
          *
